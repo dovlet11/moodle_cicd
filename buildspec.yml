@@ -4,19 +4,19 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 074427408993.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $DEV_ACCOUNT
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t moz .
-      - docker tag moz:latest 074427408993.dkr.ecr.us-east-1.amazonaws.com/moz:latest      
+      - docker tag moz:latest $REPOSITORY_URI:$IMAGE_TAG      
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 074427408993.dkr.ecr.us-east-1.amazonaws.com/moz:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"moz-world","imageUri":"%s"}]' 074427408993.dkr.ecr.us-east-1.amazonaws.com/moz:latest > imagedefinitions.json
+      - printf '[{"name":"$CONTAINER_NAME","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
