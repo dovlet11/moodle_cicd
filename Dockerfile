@@ -17,8 +17,6 @@ RUN ${build_command}
 ## SERVE STAGE
 FROM nginx:alpine as serve-stage
 
-RUN apt-get install git -y
-
 # Copy assets & config
 COPY --from=build-stage /app/www /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf

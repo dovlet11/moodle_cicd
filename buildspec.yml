@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t moz .
+      - docker build -t moz:latest .
       - docker tag moz:latest $REPOSITORY_URI:$IMAGE_TAG      
   post_build:
     commands:
