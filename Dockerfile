@@ -4,7 +4,7 @@ FROM node:14 as build-stage
 WORKDIR /app
 
 # Prepare node dependencies
-RUN apt-get update && apt-get install libsecret-1-0 -y && apt-get install git -y
+RUN apt-get update && apt-get install libsecret-1-0 -y
 COPY package*.json ./
 RUN npm ci
 
@@ -15,6 +15,8 @@ RUN ${build_command}
 
 ## SERVE STAGE
 FROM nginx:alpine as serve-stage
+
+RUN apt-get install git -y
 
 # Copy assets & config
 COPY --from=build-stage /app/www /usr/share/nginx/html

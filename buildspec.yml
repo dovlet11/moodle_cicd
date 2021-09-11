@@ -16,3 +16,7 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 074427408993.dkr.ecr.us-east-1.amazonaws.com/moz:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"moz-world","imageUri":"%s"}]' 074427408993.dkr.ecr.us-east-1.amazonaws.com/moz:latest > imagedefinitions.json
+artifacts:
+    files: imagedefinitions.json
