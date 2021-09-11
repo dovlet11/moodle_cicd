@@ -4,7 +4,7 @@ FROM node:14 as build-stage
 WORKDIR /app
 
 # Prepare node dependencies
-RUN apt-get update && apt-get install libsecret-1-0 -y
+RUN apt-get update && apt-get install libsecret-1-0 -y && apt-get install git -y
 COPY package*.json ./
 RUN npm ci
 
