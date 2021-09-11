@@ -11,6 +11,7 @@ RUN npm ci
 # Build source
 ARG build_command="npm run build:prod"
 COPY . /app
+RUN apt-get install git -y
 RUN ${build_command}
 
 ## SERVE STAGE
