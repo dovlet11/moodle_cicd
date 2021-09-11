@@ -46,7 +46,7 @@ function getBuild(environment) {
         isProduction: environment === 'production',
         isTesting: environment === 'testing',
         isDevelopment: environment === 'development',
-        lastCommitHash: execSync('git log -1 --pretty=format:"%H"').toString(),
+        // lastCommitHash: execSync('git log -1 --pretty=format:"%H"').toString(),
         compilationTime: Date.now(),
     };
 }
